@@ -61,7 +61,6 @@ namespace WebAddressbookTests
         private void ReturnToHomePage()
         {
             driver.FindElement(By.LinkText("home page")).Click();
-            driver.Navigate().GoToUrl("http://localhost/addressbook/index.php");
         }
 
         private void SubmitContactCreation()
@@ -82,7 +81,6 @@ namespace WebAddressbookTests
         private void InitNewContactCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
-            driver.Navigate().GoToUrl("http://localhost/addressbook/edit.php");
         }
 
         private void Login(AccountData account)
