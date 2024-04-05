@@ -1,4 +1,4 @@
-﻿using addressbook_web_tests;
+﻿using WebAddressbookTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
