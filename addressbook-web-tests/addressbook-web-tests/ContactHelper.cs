@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
 using WebAddressbookTests;
 
-namespace addressbook_web_tests
+namespace WebAddressbookTests
 {
     public class ContactHelper : HelperBase
     {
