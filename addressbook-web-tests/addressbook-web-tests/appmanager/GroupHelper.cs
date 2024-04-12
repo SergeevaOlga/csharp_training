@@ -27,10 +27,20 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public GroupHelper Remove(int p)
+        {
+            GoToGroupsPage();
+            SelectGroup(p);
+            RemoveGroup();
+            ReturnToGroupsPage();
+            return this;
+        }
 
-        public void GoToGroupsPage()
+
+        public GroupHelper GoToGroupsPage()
         {
             driver.FindElement(By.LinkText("groups")).Click();
+            return this;
         }
 
         public GroupHelper InitNewGroupCreation()

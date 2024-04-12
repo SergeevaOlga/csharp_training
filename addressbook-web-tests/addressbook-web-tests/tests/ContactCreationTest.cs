@@ -15,11 +15,10 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {
-            app.Contacts.InitNewContactCreation();
+            
             ContactData contact = new ContactData("Ольга");
             contact.Lastname = "Лейнбаум";
-            app.Contacts.FillContactForm(contact);
-            app.Contacts.SubmitContactCreation();
+            app.Contacts.Create(contact);
             app.Navigator.ReturnToHomePage();
             app.Auth.Logout();
         }

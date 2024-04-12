@@ -17,12 +17,21 @@ namespace WebAddressbookTests
         {
         }
 
-        public void InitNewContactCreation()
+        public ContactHelper Create(ContactData contact)
         {
-            driver.FindElement(By.LinkText("add new")).Click();
+            InitNewContactCreation();
+            FillContactForm(contact);
+            SubmitContactCreation();
+            return this;
         }
 
-        public void FillContactForm(ContactData contact)
+        public ContactHelper InitNewContactCreation()
+        {
+            driver.FindElement(By.LinkText("add new")).Click();
+            return this;
+        }
+
+        public ContactHelper FillContactForm(ContactData contact)
         {
             driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
@@ -30,11 +39,13 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("lastname")).Click();
             driver.FindElement(By.Name("lastname")).Clear();
             driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
+            return this;
         }
 
-        public void SubmitContactCreation()
+        public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            return this;
         }
 
         
