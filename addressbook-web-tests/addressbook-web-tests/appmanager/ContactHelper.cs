@@ -7,6 +7,8 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
+using System.Reflection;
+using System.IO;
 
 namespace WebAddressbookTests
 {
@@ -22,6 +24,38 @@ namespace WebAddressbookTests
             InitNewContactCreation();
             FillContactForm(contact);
             SubmitContactCreation();
+            return this;
+        }
+
+        public ContactHelper Modify(int p, ContactData newData)
+        {
+            manager.Navigator.GoToHomePage();
+            InitContactModification(p);
+            FillContactForm(newData);
+            SubmitContactModification();
+            return this;
+        }
+
+        public ContactHelper RemoveFromHomePage(int p)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContact(p);
+            SubmitRemoveContact();
+            return this;
+        }
+
+        public ContactHelper RemoveAll()
+        {
+            manager.Navigator.GoToHomePage();
+            SelectAllContacts();
+            SubmitRemoveContact();
+            return this;
+        }
+        public ContactHelper RemoveFromEditPage(int p)
+        {
+            manager.Navigator.GoToHomePage();
+            InitRemoveContact(p);
+            SubmitRemoveContact();
             return this;
         }
 
@@ -48,6 +82,45 @@ namespace WebAddressbookTests
             return this;
         }
 
-        
+        public ContactHelper InitContactModification(int p)
+        {
+            p++;
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + p + "]/td[8]/a/img")).Click();
+            return this;
+        }
+
+        public ContactHelper SubmitContactModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContact(int p)
+        {
+            p++;
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + p + "]/td/input")).Click();
+            
+            return this;
+        }
+
+        public ContactHelper InitRemoveContact(int p)
+        {
+            p++;
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + p + "]/td[8]/a/img")).Click();
+            return this;
+        }
+
+        public ContactHelper SubmitRemoveContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            return this;
+        }
+        public ContactHelper SelectAllContacts()
+        {
+            driver.FindElement(By.Id("MassCB")).Click();
+            return this;
+        }
+
+
     }
 }
