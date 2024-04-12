@@ -12,19 +12,25 @@ namespace WebAddressbookTests
 {
     public class GroupHelper : HelperBase
     {
-        public GroupHelper(ApplicationManager manager, string baseURL)
+        public GroupHelper(ApplicationManager manager)
             : base(manager)
         {
         }
 
         public GroupHelper Create(GroupData group)
         {
-            manager.Navigator.GoToGroupsPage();
+            GoToGroupsPage();
             InitNewGroupCreation();
             FillGroupForm(group);
             SubmitGroupCreation();
             ReturnToGroupsPage();
             return this;
+        }
+
+
+        public void GoToGroupsPage()
+        {
+            driver.FindElement(By.LinkText("groups")).Click();
         }
 
         public GroupHelper InitNewGroupCreation()
