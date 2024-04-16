@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using static System.Net.WebRequestMethods;
 
 namespace WebAddressbookTests
 {
@@ -21,7 +22,11 @@ namespace WebAddressbookTests
 
         public void OpenHomePage()
         {
-            driver.Navigate().GoToUrl(baseURL);
+            if (driver.Url == baseURL + "/addressbook/")
+            {
+                return;
+            }
+            driver.Navigate().GoToUrl(baseURL + "/addressbook/");
         }
 
 
@@ -33,6 +38,16 @@ namespace WebAddressbookTests
         public void GoToHomePage()
         {
             driver.FindElement(By.LinkText("home")).Click();
+        }
+
+        public void GoToGroupsPage()
+        {
+            if (driver.Url == baseURL + "/addressbook/group.php"
+                && IsElementPresent(By.Name("new")))
+            {
+                return;
+            }
+            driver.FindElement(By.LinkText("groups")).Click();
         }
     }
 }

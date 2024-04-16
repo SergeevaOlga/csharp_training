@@ -18,7 +18,7 @@ namespace WebAddressbookTests
 
         public GroupHelper Create(GroupData group)
         {
-            GoToGroupsPage();
+            manager.Navigator.GoToGroupsPage();
             InitNewGroupCreation();
             FillGroupForm(group);
             SubmitGroupCreation();
@@ -28,7 +28,7 @@ namespace WebAddressbookTests
 
         public GroupHelper Modify(int p, GroupData newData)
         {
-            GoToGroupsPage();
+            manager.Navigator.GoToGroupsPage();
             SelectGroup(p);
             InitGroupModification();
             FillGroupForm(newData);
@@ -39,16 +39,10 @@ namespace WebAddressbookTests
 
         public GroupHelper Remove(int p)
         {
-            GoToGroupsPage();
+            manager.Navigator.GoToGroupsPage();
             SelectGroup(p);
             RemoveGroup();
             ReturnToGroupsPage();
-            return this;
-        }
-
-        public GroupHelper GoToGroupsPage()
-        {
-            driver.FindElement(By.LinkText("groups")).Click();
             return this;
         }
 
