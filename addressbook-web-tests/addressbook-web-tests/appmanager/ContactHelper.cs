@@ -108,7 +108,11 @@ namespace WebAddressbookTests
             driver.FindElement(By.Id("MassCB")).Click();
             return this;
         }
-
+        public bool IsContactConsist()
+        {
+            manager.Navigator.GoToHomePage();
+            return IsElementPresent(By.XPath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+        }
 
     }
 }
