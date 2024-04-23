@@ -77,7 +77,7 @@ namespace WebAddressbookTests
 
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("//span[" + index + "]/input")).Click();
+            driver.FindElement(By.XPath("//span[" + index+1 + "]/input")).Click();
             return this;
         }
 

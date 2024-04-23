@@ -18,16 +18,27 @@ namespace WebAddressbookTests
             group.Header = "gh";
             group.Footer = "gf";
 
+
             GroupData newData = new GroupData("new_gn");
             newData.Header = "new_gh";
             newData.Footer = "new_gf";
+
+            
 
             if (app.Groups.IsGroupConsist() == false)
             {
                 app.Groups.Create(group);
             }
-            app.Groups.Modify(1, newData);
-            app.Auth.Logout();
+
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            app.Groups.Modify(0, newData);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups[0].Name = newData.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }
