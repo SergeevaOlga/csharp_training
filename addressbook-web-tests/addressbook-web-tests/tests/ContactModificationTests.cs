@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -13,17 +14,27 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModificationTest()
         {
-            ContactData newData = new ContactData("Петр");
-            newData.Lastname = "Петров";
+            ContactData newData = new ContactData("Петр", "Петров");
+            //newData.Lastname = "Петров";
 
-            ContactData oldData = new ContactData("Иван");
-            oldData.Lastname = "Иванов";
+            ContactData oldData = new ContactData("Иван", "Иванов");
+            //oldData.Lastname = "Иванов";
 
             if (app.Contacts.IsContactConsist() == false)
             {
                 app.Contacts.Create(oldData);
             }
+
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+
             app.Contacts.Modify(1, newData);
+
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            oldContacts[0].FirstName = newData.FirstName;
+            oldContacts[0].LastName = newData.LastName;   
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }

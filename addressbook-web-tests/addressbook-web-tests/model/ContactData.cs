@@ -7,37 +7,38 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class ContactData
+    public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstname;
-        private string lastname = "";
+        private string firstName;
+        private string lastName = "";
 
-        public ContactData(string firstname)
+        public ContactData(string firstName, string lastName)
         {
-            this.firstname = firstname;
+            this.firstName = firstName;
+            this.lastName = lastName;
         }
 
-        public string Firstname
+        public string FirstName
         {
             get
             {
-                return firstname;
+                return firstName;
             }
             set
             {
-                firstname = value;
+                firstName = value;
             }
         }
 
-        public string Lastname
+        public string LastName
         {
             get
             {
-                return lastname;
+                return lastName;
             }
             set
             {
-                lastname = value;
+                lastName = value;
             }
         }
 
@@ -51,26 +52,37 @@ namespace WebAddressbookTests
             {
                 return true;
             }
-            return Firstname == other.Firstname;
+            return FirstName == other.FirstName && LastName == other.LastName;
         }
 
         public override int GetHashCode()
         {
-            return Firstname.GetHashCode();
+            return (FirstName + LastName).GetHashCode();
         }
 
         public override string ToString()
         {
-            return "firstname=" + Firstname;
+            return "firstname=" + FirstName + " lastname=" + LastName;
         }
 
-        public int CompareTo(GroupData other)
+        public int CompareTo(ContactData other)
         {
-            if (Object.ReferenceEquals(other, null))
+            if (object.ReferenceEquals(other, null))
             {
                 return 1;
             }
-            return Firstname.CompareTo(other.Name);
+            if (this.FirstName != other.FirstName)
+            {
+                return FirstName.CompareTo(other.FirstName);
+            }
+            if (this.LastName != other.LastName)
+            {
+                return LastName.CompareTo(other.LastName);
+            }
+            return LastName.CompareTo(other.LastName) & FirstName.CompareTo(other.FirstName);
+
+
         }
+
     }
 }
