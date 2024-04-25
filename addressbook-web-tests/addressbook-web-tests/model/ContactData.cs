@@ -79,7 +79,7 @@ namespace WebAddressbookTests
             {
                 return LastName.CompareTo(other.LastName);
             }
-            return LastName.CompareTo(other.LastName) & FirstName.CompareTo(other.FirstName);
+            return 0;
 
 
         }
