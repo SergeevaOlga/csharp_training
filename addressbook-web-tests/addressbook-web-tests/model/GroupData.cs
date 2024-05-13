@@ -37,7 +37,9 @@ namespace WebAddressbookTests
             {
                 return true;
             }
+            //return Name.Equals(other.Name, StringComparison.Ordinal);
             return Name == other.Name;
+
         }
 
         public override int GetHashCode()
