@@ -90,6 +90,14 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper InitContactDetails(int index)
+        {
+            //p++;
+            //driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + p + "]/td[8]/a/img")).Click();
+            driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[6].FindElement(By.TagName("a")).Click();
+            return this;
+        }
+
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
@@ -203,6 +211,19 @@ namespace WebAddressbookTests
             string text = driver.FindElement(By.TagName("label")).Text;
             Match m = new Regex(@"\d+").Match(text);
             return Int32.Parse(m.Value);
+        }
+
+        public ContactData GetContactInformationFromDetailsForm(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            InitContactDetails(index);
+            string contactDetails = driver.FindElement(By.Id("content")).Text;
+
+
+            return new ContactData()
+            {
+                ContactDetails = contactDetails
+            };
         }
     }
 }
