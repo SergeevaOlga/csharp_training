@@ -57,7 +57,7 @@ namespace WebAddressbookTests
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
-            app.Contacts.RemoveFromEditPage(1);
+            app.Contacts.RemoveFromEditPage(0);
 
             Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactCount());
 

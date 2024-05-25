@@ -13,6 +13,7 @@ namespace WebAddressbookTests
         public GroupData(string name)
         {
             Name = name;
+
         }
 
         public string Name { get; set;  }
@@ -49,7 +50,7 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return "name=" + Name;
+            return "name=" + Name + "\nheader=" + Header + "\nfooter=" + Footer;
         }
 
         public int CompareTo(GroupData other)

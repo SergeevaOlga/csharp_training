@@ -92,8 +92,6 @@ namespace WebAddressbookTests
 
         public ContactHelper InitContactDetails(int index)
         {
-            //p++;
-            //driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + p + "]/td[8]/a/img")).Click();
             driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[6].FindElement(By.TagName("a")).Click();
             return this;
         }
