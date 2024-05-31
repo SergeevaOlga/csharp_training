@@ -7,9 +7,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
+using LinqToDB.Mapping;
 
 namespace WebAddressbookTests
 {
+    [Table(Name = "addressbook")]
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
@@ -32,29 +34,31 @@ namespace WebAddressbookTests
             LastName = lastName;
         }
 
+        [Column(Name = "firstname")]
         public string FirstName { get; set; }
 
-
+        [Column(Name = "lastname")]
         public string LastName { get; set; }
 
+        [Column(Name = "address")]
         public string Address { get; set; }
 
-
+        [Column(Name = "home")]
         public string HomePhone { get; set; }
 
-
+        [Column(Name = "mobile")]
         public string MobilePhone { get; set; }
 
-
+        [Column(Name = "work")]
         public string WorkPhone { get; set; }
 
-
+        [Column(Name = "email")]
         public string Email { get; set; }
 
-
+        [Column(Name = "email2")]
         public string Email2 { get; set; }
 
-
+        [Column(Name = "email3")]
         public string Email3 { get; set; }
 
 
