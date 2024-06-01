@@ -34,7 +34,7 @@ namespace WebAddressbookTests
 
         public string Footer { get; set; }
 
-        [Column(Name = "group_footer"), PrimaryKey, Identity]
+        [Column(Name = "group_id"), PrimaryKey, Identity]
         public string Id { get; set; }
 
 
