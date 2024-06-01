@@ -34,6 +34,9 @@ namespace WebAddressbookTests
             LastName = lastName;
         }
 
+        [Column(Name = "id"), PrimaryKey]
+        public string Id { get; set; }
+
         [Column(Name = "firstname")]
         public string FirstName { get; set; }
 
@@ -200,9 +203,7 @@ namespace WebAddressbookTests
             return letter + phone + "\r\n";
         }
 
-        public string Id { get; set; }
-
-
+        
         public bool Equals(ContactData other)
         {
             if (Object.ReferenceEquals(other, null))
