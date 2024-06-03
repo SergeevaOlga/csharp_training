@@ -42,26 +42,12 @@ namespace WebAddressbookTests
 
         [Column(Name = "lastname")]
         public string LastName { get; set; }
-
-        [Column(Name = "address")]
         public string Address { get; set; }
-
-        [Column(Name = "home")]
         public string HomePhone { get; set; }
-
-        [Column(Name = "mobile")]
         public string MobilePhone { get; set; }
-
-        [Column(Name = "work")]
         public string WorkPhone { get; set; }
-
-        [Column(Name = "email")]
         public string Email { get; set; }
-
-        [Column(Name = "email2")]
         public string Email2 { get; set; }
-
-        [Column(Name = "email3")]
         public string Email3 { get; set; }
 
 
@@ -244,6 +230,14 @@ namespace WebAddressbookTests
             return 0;
 
 
+        }
+
+        public static List<ContactData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts select c).ToList();
+            }
         }
 
     }

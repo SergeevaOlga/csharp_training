@@ -36,6 +36,15 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Modify(ContactData oldcontactData, ContactData newData)
+        {
+            manager.Navigator.GoToHomePage();
+            InitContactEdit(oldcontactData.Id);
+            FillContactForm(newData);
+            SubmitContactModification();
+            return this;
+        }
+
         public ContactHelper RemoveFromHomePage(int p)
         {
             manager.Navigator.GoToHomePage();
@@ -45,18 +54,39 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper RemoveAll()
+        public ContactHelper RemoveFromHomePage(ContactData contact)
         {
             manager.Navigator.GoToHomePage();
-            SelectAllContacts();
+            SelectContact(contact.Id);
             SubmitRemoveContact();
             contactCache = null;
             return this;
         }
+
+
+
         public ContactHelper RemoveFromEditPage(int p)
         {
             manager.Navigator.GoToHomePage();
             InitContactEdit(p);
+            SubmitRemoveContact();
+            contactCache = null;
+            return this;
+        }
+
+        public ContactHelper RemoveFromEditPage(ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
+            InitContactEdit(contact.Id);
+            SubmitRemoveContact();
+            contactCache = null;
+            return this;
+        }
+
+        public ContactHelper RemoveAll()
+        {
+            manager.Navigator.GoToHomePage();
+            SelectAllContacts();
             SubmitRemoveContact();
             contactCache = null;
             return this;
@@ -90,6 +120,14 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper InitContactEdit(String id)
+        {
+            //p++;
+            //driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + p + "]/td[8]/a/img")).Click();
+            driver.FindElement(By.XPath($"//input[@name='selected[]' and @value='{id}']//..//../td[8]/a")).Click();
+            return this;
+        }
+
         public ContactHelper InitContactDetails(int index)
         {
             driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[6].FindElement(By.TagName("a")).Click();
@@ -108,6 +146,12 @@ namespace WebAddressbookTests
             p++;
             driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + p + "]/td/input")).Click();
             
+            return this;
+        }
+
+        public ContactHelper SelectContact(String id)
+        {
+            driver.FindElement(By.XPath($"//input[@name='selected[]' and @value='{id}']")).Click();
             return this;
         }
 
@@ -222,6 +266,38 @@ namespace WebAddressbookTests
             {
                 ContactDetails = contactDetails
             };
+        }
+
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();
+            SelectIdContact(contact.Id);
+            SelectGroupToAdd(group.Name);
+            ConmmitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        private void ConmmitAddingContactToGroup()
+        { 
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        private void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        private void SelectIdContact(string contactId)
+        {
+            //driver.FindElement(By.Id(contactId));
+            driver.FindElement(By.XPath($"//input[@name='selected[]' and @value='{contactId}']")).Click();  
+        }
+
+        private void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
         }
     }
 }

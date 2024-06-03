@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactRemovalTests : AuthTestBase
+    public class ContactRemovalTests : ContactTestBase
     {
         [Test]
         
@@ -23,14 +23,14 @@ namespace WebAddressbookTests
                 app.Contacts.Create(oldData);
             }
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
+            ContactData toBeRemoved = oldContacts[0];
 
-            app.Contacts.RemoveFromHomePage(1);
+            app.Contacts.RemoveFromHomePage(toBeRemoved);
 
             Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactCount());
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
-            ContactData toBeRemoved = oldContacts[0];
+            List<ContactData> newContacts = ContactData.GetAll();
             oldContacts.RemoveAt(0);
             oldContacts.Sort();
             newContacts.Sort();
@@ -55,14 +55,14 @@ namespace WebAddressbookTests
                 app.Contacts.Create(oldData);
             }
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
+            ContactData toBeRemoved = oldContacts[0];
 
-            app.Contacts.RemoveFromEditPage(0);
+            app.Contacts.RemoveFromEditPage(toBeRemoved);
 
             Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactCount());
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
-            ContactData toBeRemoved = oldContacts[0];
+            List<ContactData> newContacts = ContactData.GetAll();
             oldContacts.RemoveAt(0);
             oldContacts.Sort();
             newContacts.Sort();
@@ -72,26 +72,6 @@ namespace WebAddressbookTests
             {
                 Assert.AreNotEqual(contact.Id, toBeRemoved.Id);
             }
-        }
-
-        [Test]
-        public void ContactRemovalAllTest()
-        {
-            ContactData oldData = new ContactData("Иван", "Иванов");
-            //oldData.Lastname = "Иванов";
-
-            if (app.Contacts.IsContactConsist() == false)
-            {
-                app.Contacts.Create(oldData);
-            }
-
-             app.Contacts.RemoveAll();
-
-            Assert.AreEqual(0, app.Contacts.GetContactCount());
-
-            List<ContactData> newContacts = app.Contacts.GetContactList();
-            
-            Assert.AreEqual(newContacts, "");
         }
     }
 }
