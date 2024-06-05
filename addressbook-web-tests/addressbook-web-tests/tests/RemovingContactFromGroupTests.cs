@@ -13,6 +13,24 @@ namespace WebAddressbookTests
 
         public void TestRemovingContactFromGroup()
         {
+            ContactData oldData = new ContactData("name to add in group", "lastname to add in group");
+
+            if (app.Contacts.IsContactConsist() == false)
+            {
+                app.Contacts.Create(oldData);
+            }
+
+            GroupData groupListEmpty = new GroupData("gn to add contact");
+            groupListEmpty.Header = "gh to add contact";
+            groupListEmpty.Footer = "gf to add contact";
+
+
+
+            if (app.Groups.IsGroupConsist() == false)
+            {
+                app.Groups.Create(groupListEmpty);
+            }
+
             GroupData group = GroupData.GetAll()[0];
             List<ContactData> oldList = group.GetContacts();
 
