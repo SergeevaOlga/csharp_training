@@ -28,6 +28,8 @@ namespace mantis_tests
             Ftp = new FtpHelper(this);
             Manager = new ManagementMenuHelper(this, baseURL);
             Project = new ProjectManagementHelper(this);
+            Admin = new AdminHelper(this, baseURL);
+            API = new APIHelper(this);
         }
 
         public static ApplicationManager GetInstance()
@@ -66,5 +68,7 @@ namespace mantis_tests
         public FtpHelper Ftp { get; private set; }
         public ManagementMenuHelper Manager { get; private set; }
         public ProjectManagementHelper Project { get; private set; }
+        public AdminHelper Admin { get; private set; }
+        public APIHelper API { get; private set; }
     }
 }

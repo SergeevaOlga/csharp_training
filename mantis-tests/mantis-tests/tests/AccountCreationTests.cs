@@ -21,7 +21,7 @@ namespace mantis_tests
         }
 
         [Test]
-        public void TestAccountRegistration()
+        public void TestAccountRegistrationOld()
         {
             AccountData account = new AccountData()
             {
@@ -34,7 +34,21 @@ namespace mantis_tests
 
         }
 
-        [TestFixtureTearDown]
+        [Test]
+        public void TestAccountRegistration()
+        {
+            List<AccountData> accounts = app.Admin.GetAllAccounts();
+            AccountData existingAccount = accounts.Find(x => x.Name == "testuser1");
+            if (existingAccount != null)
+            {
+                app.Admin.DeleteAccount(existingAccount);
+            }
+
+        }
+
+        
+
+    [TestFixtureTearDown]
        public void restoreConfig()
         {
             app.Ftp.RestoreBackupFile("/config_inc.php");
